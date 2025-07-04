@@ -68,11 +68,6 @@ endif()
 
 set(BIN_FILE_NAME OSCILLO_SG_CM4.bin)
 set(BIN_FILE_PATH ${CM4_BIN_FILE_DIR}/${BIN_FILE_NAME})
-#if (${CMAKE_BUILD_TYPE} STREQUAL "Debug" )
-#    set(BIN_FILE_PATH ../../CM4/cmake-build-debug/${BIN_FILE_NAME})
-#else()
-#    set(BIN_FILE_PATH ../../CM4/cmake-build-release/${BIN_FILE_NAME})
-#endif()
 
 add_definitions(-DBIN_FILE_PATH="${BIN_FILE_PATH}")
 
