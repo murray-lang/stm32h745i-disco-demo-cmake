@@ -17,7 +17,6 @@ set(CM4_BIN_FILE_DIR ${CM7_BINARY_DIR})
 add_subdirectory(CM4 ${CM4_BINARY_DIR} )
 add_subdirectory(CM7 ${CM7_BINARY_DIR} )
 
-#set(OPENOCD_SCRIPTS_PATH "C:/Users/murra/AppData/Local/STM32CubeIDE_1.18.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.debug.openocd_2.3.100.202501240831/resources/openocd/st_scripts")
 
 add_custom_target(FLASH_CM4
         COMMAND STM32_Programmer_CLI --connect port=SWD --write ${CMAKE_BINARY_DIR}/CM4/${TARGET_CM4}.elf --start
@@ -35,3 +34,46 @@ add_custom_target(FLASH_CM7_MENU
         COMMAND STM32_Programmer_CLI --connect port=SWD -el "${EXTERNAL_LOADER}" --write ${CMAKE_BINARY_DIR}/CM7/${TARGET_CM7_MENU}.elf --start
         DEPENDS ${TARGET_CM7_MENU}
 )
+
+#add_custom_target(FLASH_CM4
+#        COMMAND gdb-multiarch -nx --batch
+#        -ex "target remote 10.1.1.221:61234"
+#        -ex "load"
+#        -ex "monitor reset"
+#        -ex "disconnect"
+#        -ex "quit"
+#        ${CMAKE_BINARY_DIR}/CM4/${TARGET_CM4}.elf
+#        DEPENDS ${TARGET_CM4}
+#)
+
+
+
+#set(OPENOCD_SCRIPTS_PATH "/opt/st/stm32cubeide_1.18.1/plugins/com.st.stm32cube.ide.mcu.debug.openocd_2.3.100.202501240831/resources/openocd/st_scripts")
+#
+#add_custom_target(FLASH_CM4
+#        COMMAND openocd -s "${OPENOCD_SCRIPTS_PATH}"
+#        -f ${CMAKE_SOURCE_DIR}/CM4/CM4_openocd.cfg
+#        -c "program ${CMAKE_BINARY_DIR}/CM4/${TARGET_CM4}.elf verify reset exit"
+#        DEPENDS ${TARGET_CM4}
+#)
+#
+#add_custom_target(FLASH_CM7_OSC
+#        COMMAND openocd -s "${OPENOCD_SCRIPTS_PATH}"
+#        -f ${CMAKE_SOURCE_DIR}/CM7/CM7_openocd.cfg
+#        -c "init"
+#        -c "reset init"
+#        -c "flash banks"
+#        -c "program ${CMAKE_BINARY_DIR}/CM7/${TARGET_CM7_OSC}.elf verify reset exit"
+#        DEPENDS ${TARGET_CM7_OSC}
+#)
+#
+#add_custom_target(FLASH_CM7_MENU
+#        COMMAND openocd -s "${OPENOCD_SCRIPTS_PATH}"
+#        -f interface/stlink-dap.cfg
+#        -f target/stm32h7x_dual_bank.cfg
+#        -c "init"
+#        -c "reset init"
+#        -c "flash banks"
+#        -c "program ${CMAKE_BINARY_DIR}/CM7/${TARGET_CM7_MENU}.elf verify reset exit"
+#        DEPENDS ${TARGET_CM7_MENU}
+#)
